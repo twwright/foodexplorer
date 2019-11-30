@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["twwright"]
   spec.email         = ["twwright@gmail.com"]
 
-  spec.summary       = %q{Tracking your macros in the command line!}
-  spec.description   = %q{The macro-counter gem helps users track macronutrients --- fats, proteins, and carbs --- as part of a customized diet regime tailored to your goals!}
+  spec.summary       = %q{Tracking your macros in the command line using OpenFoodFacts API!}
+  spec.description   = %q{The macrocounter gem helps users track macronutrients --- fats, proteins, and carbs --- as part of a customized diet regime tailored to your goals!}
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
 
