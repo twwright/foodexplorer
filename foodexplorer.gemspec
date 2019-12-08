@@ -1,15 +1,15 @@
 lib = File.expand_path("lib", __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "macrocounter/version"
+require "foodexplorer/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "macrocounter"
-  spec.version       = Macrocounter::VERSION
+  spec.name          = "foodexplorer"
+  spec.version       = Foodexplorer::VERSION
   spec.authors       = ["twwright"]
   spec.email         = ["twwright@gmail.com"]
 
-  spec.summary       = %q{Tracking your macros in the command line using OpenFoodFacts API!}
-  spec.description   = %q{The macrocounter gem helps users track macronutrients --- fats, proteins, and carbs --- as part of a customized diet regime tailored to your goals!}
+  spec.summary       = %q{Explore your kitchen cabinets and check out some nutritional data!}
+  spec.description   = %q{The foodexplorer gem helps users learn about the calories and macronutrient contents --- fats, proteins, and carbs --- of some randomly chosen food provided by the Spoonacular API.}
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
 

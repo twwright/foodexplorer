@@ -1,3 +1,3 @@
-module Macrocounter
+module Foodexplorer
   VERSION = "0.1.0"
 end

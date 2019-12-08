@@ -1,7 +1,3 @@
-require 'httparty'
-require 'pp'
-require 'pry'
-
 class Product
 	include HTTParty
 	attr_accessor :name, :calories, :carbs, :fat, :protein
@@ -25,7 +21,13 @@ class Product
 			@@all[self.name] = full_description
 	end
 
-	#TODO: Manually allow user to create a product with input
+	def self.all
+		@@all
+	end
+
+
+##TODO: Manually allow user to create a product with input
+
 =begin
 	def self.create(name:, calories:, carbs:, fat:, protein:)
 		self.name = name
@@ -43,19 +45,4 @@ class Product
 	end
 =end
 
-	def self.all
-		@@all
-	end
 end
-
-=begin
-"Open a new cabinet" Cabinet#open
-1. Creates new cabinet object that contains an array of Grocery objects
-2. Adds new grocery array to larger Cabinet.all list
-
-"Report contents of all cabinets" Cabinet#all == Groceries.all
-
-
-Cabinet.all == Product.all
-Cabinet.new == generate three product object
-=end
