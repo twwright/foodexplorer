@@ -21,6 +21,23 @@ class Product
 			@@all[self.name] = full_description
 	end
 
+	def show_info
+		k = product.calories
+		c = product.carbs
+		f = product.fat
+		pro = product.protein
+		puts "#{product.name} contains #{k} calories.\n
+		It contains #{c}g of carbs, #{f}g of fat, and #{pro}g of protein.\n
+		The macronutrient ratio is approximately...\n"
+		sleep 1
+		puts "#{4*((100*c)/k)}% CARBS\n
+		#{9*((100*f)/k)}% FAT\n
+		#{4*((100*pro)/k)}% PROTEIN\n"
+		sleep 1
+		puts "\nLet's head back to our product list."
+		nav.main_back
+	end
+
 	def self.all
 		@@all
 	end

@@ -41,11 +41,11 @@ class Cabinets < CLI
 			sleep 2
 			kitchen
 		elsif input == "1"
-			cabinet[0]
+			cabinet[0].show_info
 		elsif input == "2"
-			cabinet[1]
+			cabinet[1].show_info
 		elsif input == "3"
-			cabinet[2]
+			cabinet[2].show_info
 		else
 			puts "\nOops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
 			sleep 2
