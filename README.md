@@ -1,23 +1,17 @@
-# foodexplorer
-Welcome to Foodexplorer v1! 
 
-This gem is designed to be a proof-of-concept for manipulating nutritional data for products from an API call as Ruby objects. It remains a future goal to add logging functionality and calculations for the user.
+![Foodexplorer v1 - a command line tool in ruby logo](https://github.com/twwright/foodexplorer/blob/master/foodexplorerv1.svg)
+
+## Welcome to Foodexplorer v1! 
+
+This tool is designed to be a proof-of-concept for manipulating Ruby objects created automagically from the data returned from an API call. Future iterations aim to add features such as custom products, custom cabinets, product lookup, meal logging, and macronutrient ratio calculations for the user.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'foodexplorer'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install foodexplorer
+Eventually, **foodexplorer** will be a fully-fledged Ruby gem. At the moment, installation can be performed with the following steps:
+1. Fork the repo
+2. Clone to your local machine
+3. Change directory into \bin
+4. Type `ruby start` in your terminal!
 
 ## Usage
 
