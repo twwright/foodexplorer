@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+The primary use case of the foodexplorer is simply a game that allows you to view the macronutrients of random projects received through an API call to Spoonacular.
 
 ## Development
 

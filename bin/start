@@ -1,4 +1,4 @@
 require_relative '../lib/foodexplorer'
 
-cli_object = CLI.new
-cli_object.begin
+nav = CLI.new
+nav.begin

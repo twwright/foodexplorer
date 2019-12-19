@@ -1,5 +1,4 @@
 require "colorize"
-require "pry"
 
 class CLI
 
@@ -9,29 +8,28 @@ class CLI
 
 	def main_intro
 		puts <<-DOC.gsub /^\s*/, ''
-			Hello! Welcome to your personal macrocounter!
-			A macronutrient, or 'macro' for short, is a fundamental building block of nutrition. 
-			We're going to explore your kitchen and check out the nutritional facts for your current groceries! 
+			Hello! Welcome to your personal foodexplorer! 
+			We're going to explore your kitchen and check out the nutritional facts for the products that we find! 
 			Let's get started!
 		DOC
 		sleep 1
 		loading = 3
-		print "\nLOADING\n[--" 
+		print " L O A D I N G\n".red + "[---".red
 		until loading == 0
-			print "--"
+			print "--".red
 			sleep 1
 			loading -= 1
 		end
-		print "--]\n\n"
+		puts "---]".red
 		main_menu
 	end
 
 	def main_menu
-		puts "To see your current cabinets, enter #{"Kitchen".black.on_blue}."
+		puts "To see your current cabinets, enter the #{"Kitchen".on_blue}."
 		sleep 1
-		puts "You can also jump right to your products by typing #{"Items".black.on_blue}."
+		puts "You can also jump right to a list of all of your products by typing #{"Items".on_blue}."
 		sleep 1
-		puts "At any time typing #{"Exit".black.on_red} will leave... but we'll miss you."
+		puts "At any time typing #{"Exit".on_red} will leave... but we'll miss you."
 		sleep 1
 		puts "So, what would you like to do?"
 		input = gets.strip.downcase
@@ -39,29 +37,13 @@ class CLI
 			goodbye
 		elsif input.include? "kit"
 			kitchen_intro
-		elsif input.include? "pro"
+		elsif input.include? "item" || "product"
 			products_intro
 		else
-			puts "\nOops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
+			puts "Oops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
 			sleep 2
 			main_menu
 		end
-	end
-
-	def back_prompt
-		puts "Would you like to head back to your #{"Cabinets".black.on_blue}, the #{"Kitchen".black.on_blue}, or the Main #{"Menu".black.on_blue}?"
-		input = gets.strip.downcase
-			if input.include? "exit"
-				goodbye
-			elsif input.include? "kit"
-				kitchen_intro
-			elsif input.include? "cab"
-				cabinet_intro
-			else
-				puts "\nOops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
-				sleep 2
-				main_menu
-			end
 	end
 
 	def products_intro
@@ -72,127 +54,156 @@ class CLI
 
 	def products_list
 		if Product.all.length == 0
-			puts "Hmm. Looks like you don't have found any products yet.\n 
-			Would you like to head to the kitchen to check out some cabinets?\n
-			Type #{"Yes".black.on_green} or #{"No".black.on_red}."
+			puts "Hmm. Looks like you don't have found any products yet." 
+			sleep 1
+			puts "Would you like to head to the kitchen to open a new cabinet?"
+			puts "Type #{"Yes".on_green} or #{"No".on_red}."
 			input = gets.strip.downcase
 			if input.include? "exit"
 				goodbye
 			elsif input.include? "yes"
-				cabinet_intro
+				kitchen_intro
 			elsif input.include? "no"
-				puts "\nVery well then. Let's head back to the main menu."
+				puts "Very well then. Let's head back to the main menu."
 				main_menu
 			else
-				puts "\nOops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
+				puts "Oops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
 				sleep 2
 				main_menu
 			end
 		elsif Product.all.length > 0
-			Product.all.each {} |index, product| puts "\n#{index + 1}. #{product[index].name}" }
-			product_explore
-		else
-			puts "\nOops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
-			sleep 2
-			main_menu
+				list = Product.all
+				list.each.with_index(1) { |product, index| puts "#{index}." + " #{product.name}" }
 		end
-	end
-
-	def product_explore
-		puts "\nTo see the nutritional facts of a product, type the number of the product below."
-		input = gets.strip.downcase
-		if input.include? "exit"
-			goodbye
-		elsif input.to_i.between(1,999)
-			puts Product.all[input - 1].show_info
+		sleep 1
+		puts "To find out more information about an item, type the item number below. To go back to the kitchen, type #{"Back".on_red}."
+		input = gets.strip.downcase.to_i #Convert to integer; string will change to 0, convert back to string to check for chars
+		case input
+		when 0	
+			if input.to_s.include? "exit"
+				goodbye
+			elsif input.to_s.include? "back"
+				puts "Let's head back to the kichen."
+				sleep 2
+				kitchen_intro
+			else
+				puts "Oops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
+				sleep 2
+				main_menu
+			end
 		else
-			puts "\nOops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
-			sleep 2
-			main_menu
+			if list[input.to_i] != nil #As long as there's an item in the list with this index, display the info
+				list[input.to_i].show_info
+			else
+				puts "Oops. Looks like we had trouble with that one. Maybe try again?"
+				products_list
+			end
 		end
 	end
 
 	def kitchen_intro
-		<<-DOC.gsub /^\s*/, ''
-		Welcome to the kitchen! Here you'll find all of your cabinets, stocked and otherwise.
-		I bet you don't even remember what you have in here!
-		Let's explore what you have around here.
-		DOC
+		puts "Welcome to the kitchen! Here you'll find all of your cabinets, stocked and otherwise."
+		puts "I bet you don't even remember what you have in here!"
+		puts "Time to explore!"
 		sleep 1
 		kitchen_menu
 	end
 
 	def kitchen_menu
-		puts "Would you like to Open a #{"New".black.on_green} cabinet or see your #{"Current".black.on_blue} cabinet(s)?"
+		puts "Would you like to Open a #{"New".on_green} cabinet or see your #{"Current".on_blue} cabinet(s)?"
 		input = gets.strip.downcase
 		if input.include? "exit"
 			goodbye
 		elsif input.include? "new"
 			puts "Let's do it!"
-			Cabinet.new
+			open = Cabinets.new
 		elsif input.include? "cur"
-			cabinet_intro
+			cabinets_intro
 		elsif input.include? "menu" || "back"
 			main_menu
 		else
-			puts "\nOops.. I'm not sure I understood what you'd like to do. Let's head back to the Kitchen menu."
+			puts "Oops.. I'm not sure I understood what you'd like to do. Let's head back to the Main menu."
 			sleep 2
-			kitchen_menu
+			main_menu
 		end
 	end
 
-	def cabinet_intro
-		puts "Here's a list of your current cabinet(s):\n"
+	def cabinets_intro
+		puts "Here's a list of your current cabinets(s):"
 		sleep 1
-		cabinet_list
+		cabinets_list
 	end
 
-	def cabinet_list
-		if Cabinet.all.length == 0
-			puts "Hmm. Looks like we haven't opened any cabinets yet. \n
-			Would you like to open one now? Type #{"Yes".black.on_green} or #{"No".black.on_red}."
+	def cabinets_list
+		if Cabinets.all.length == 0
+			puts "Hmm. Looks like we haven't opened any cabinets yet."
+			sleep 1
+			puts "Would you like to open one now? Type #{"Yes".on_green} or #{"No".on_red}."
 			input = gets.strip.downcase
 			if input.include? "exit"
 				goodbye
 			elsif input.include? "yes"
-				Cabinet.new
+				open = Cabinets.new
 			elsif input.include? "no"
-				puts "\nVery well then. Let's head back to the main menu."
+				puts "Very well then. Let's head back to the main menu."
 				main_menu
 			else
-				puts "\nOops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
+				puts "Oops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
 				sleep 2
 				main_menu
 			end
-		else 
-			Cabinet.all.each { |cabinet| puts "#{cabinet.name}\n" }
-			cabinet_explore
+		elsif Cabinets.all.length > 0
+			Cabinets.all.each { |cabinet| puts "[- #{cabinet.name} -]" }
+			cabinets_explore
+		else
+			puts "Whoops. Looks like we might've encountered an error. Let's head back to the main menu."
+			main_menu
 		end
 	end
 
-	def cabinet_explore
-		puts "To explore a cabinet, just type the number of the cabinet below."
-		input = gets.gsub("cabinet", "").strip.downcase.
+	def cabinets_explore
+		puts "To explore a cabinet, just type the number of the cabinet!"
+		input = gets.gsub("cabinet", "").strip.downcase
 		if input.include? "exit"
 			goodbye
-		elsif input.to_i.between(1,999)
-			Cabinet.all[input.to_i - 1].each.with_index do |index, product| 
-				puts "\n#{index + 1}. #{product[0].name}"
+		elsif input.to_i.between?(1,999)
+			list = Product.all.select { |product, cabinet| product.cabinet == "Cabinet #{input}" }
+			puts "Inside of Cabinet #{input} we have..."
+			case list.length
+			when 0
+				puts "... oh no! This cabinet was empty."
+				puts "Maybe we should check out a different cabinet."
+				kitchen_intro
+			else
+				list.each.with_index(1) { |product, index| puts "#{index}. #{product.name}" }
 			end
+		end
+		sleep 1
+		puts "To find out more information about an item, type the item number below. To go back, type #{"Back".on_red}."
+		input = gets.to_s.strip.downcase
+		if input.include? "exit"
+			goodbye
+		elsif input.include? "back"
+			puts "Let's head back to the kitchen."
+			sleep 2
+			kitchen_intro
+		elsif input == "1"
+			list[0].show_info
+		elsif input == "2"
+			list[1].show_info
+		elsif input == "3"
+			list[2].show_info
 		else
-			puts "\nOops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
+			puts "Oops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
 			sleep 2
 			main_menu
 		end
 	end
 
 	def goodbye
-		puts "\nHave a bountiful day! =] We'll see you again soon!"
+		puts "Have an amazing day! We'll see you again soon!".on_magenta
 		sleep 1
 		exit
 	end
-
-	nav = CLI.new
-	nav.begin
 
 end
