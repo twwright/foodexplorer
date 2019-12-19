@@ -1,6 +1,5 @@
 # foodexplorer
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/foodexplorer`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to Foodexplorer v1! 
 
 This gem is designed to be a proof-of-concept for manipulating nutritional data for products from an API call as Ruby objects. It remains a future goal to add logging functionality and calculations for the user.
 
