@@ -2,7 +2,7 @@
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/foodexplorer`. To experiment with that code, run `bin/console` for an interactive prompt.
 
-TODO: Delete this and the text above, and describe your gem
+This gem is designed to be a proof-of-concept for manipulating nutritional data for products from an API call as Ruby objects. It remains a future goal to add logging functionality and calculations for the user.
 
 ## Installation
 
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-The primary use case of the foodexplorer is simply a game that allows you to view the macronutrients of random projects received through an API call to Spoonacular.
+The primary purpose and usage of this gem was as a way to view the macronutrients of random projects received through an API call to Spoonacular.
 
 ## Development
 
