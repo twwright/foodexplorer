@@ -3,7 +3,7 @@
 
 ## Welcome to Foodexplorer v1! 
 
-This tool is designed to be a proof-of-concept for manipulating Ruby objects created automagically from the data returned from an API call. Future iterations aim to add features such as custom products, custom cabinets, product lookup, meal logging, and macronutrient ratio calculations for the user.
+This tool is designed to be a minimum viable product for manipulating Ruby objects created automagically from data returned from an API call. Future iterations aim to add features such as custom products, custom cabinets, product lookup, meal logging, and macronutrient ratio calculations for the user.
 
 ## Installation
 
