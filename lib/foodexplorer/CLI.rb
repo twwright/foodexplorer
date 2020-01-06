@@ -153,7 +153,7 @@ class CLI
 				main_menu
 			end
 		elsif Cabinets.all.length > 0
-			Cabinets.all.each { |cabinet| puts "[- #{cabinet.name} -]" }
+			Cabinets.all.each { |cabinet| puts "\t [- #{cabinet.name} -]" }
 			cabinets_explore
 		else
 			puts "Whoops. Looks like we might've encountered an error. Let's head back to the main menu."
@@ -175,7 +175,7 @@ class CLI
 				puts "Maybe we should check out a different cabinet."
 				kitchen_intro
 			else
-				list.each.with_index(1) { |product, index| puts "#{index}. #{product.name}" }
+				list.each.with_index(1) { |product, index| puts "\t #{index}. #{product.name}" }
 			end
 		end
 		sleep 1

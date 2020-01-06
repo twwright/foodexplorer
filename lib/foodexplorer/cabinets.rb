@@ -10,7 +10,7 @@ class Cabinets < CLI
 		if random_count == 0
 			puts "Uh oh! Looks like this cabinet is empty."
 			@@all << self
-			kitchen_menu
+			nav.kitchen_intro
 		else
 			loop do
 				contents << Product.new(self.name)
@@ -18,6 +18,10 @@ class Cabinets < CLI
 			end
 		end
 		@@all << self
+		display_cabinet(contents)
+	end
+
+	def display_cabinet(contents)
 		case contents.length
 		when 3
 			puts "Let's see what's in #{self.name}..."
@@ -33,14 +37,18 @@ class Cabinets < CLI
 			puts "Hmm... not very full, is it? Looks like we just one item:\n#{"(1)".on_blue} #{contents[0].name}."
 		end
 		sleep 1
-		puts "To find out more information about an item, type the item number below. To back, type #{"Back".on_red}."
+		product_info_from_cabinet(contents)
+	end
+
+	def product_info_from_cabinet(contents)
+		puts "To find out more information about an item, type the item number below. To go back, type #{"Back".on_red}."
 		input = gets.to_s.strip.downcase
 		if input.include? "exit"
 			nav.goodbye
 		elsif input.include? "back"
-			puts "Let's head back to the kichen."
+			puts "Let's head back to the kitchen."
 			sleep 2
-			kitchen_intro
+			nav.kitchen_intro
 		elsif input == "1"
 			contents[0].show_info
 		elsif input == "2"
@@ -48,9 +56,9 @@ class Cabinets < CLI
 		elsif input == "3"
 			contents[2].show_info
 		else
-			puts "Oops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
+			puts "Oops.. I'm not sure I understood what you'd like to do. Let's try that again."
 			sleep 2
-			main_menu
+			product_info_from_cabinet(contents)
 		end
 	end
 
