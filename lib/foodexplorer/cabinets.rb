@@ -10,7 +10,7 @@ class Cabinets < CLI
 		if random_count == 0
 			puts "Uh oh! Looks like this cabinet is empty."
 			@@all << self
-			nav.kitchen_intro
+			kitchen_intro
 		else
 			loop do
 				contents << Product.new(self.name)
@@ -42,19 +42,20 @@ class Cabinets < CLI
 
 	def product_info_from_cabinet(contents)
 		puts "To find out more information about an item, type the item number below. To go back, type #{"Back".on_red}."
+		print ">> "
 		input = gets.to_s.strip.downcase
 		if input.include? "exit"
 			nav.goodbye
 		elsif input.include? "back"
 			puts "Let's head back to the kitchen."
 			sleep 2
-			nav.kitchen_intro
+			kitchen_intro
 		elsif input == "1"
-			contents[0].show_info
+			contents[0].show_basic_info
 		elsif input == "2"
-			contents[1].show_info
+			contents[1].show_basic_info
 		elsif input == "3"
-			contents[2].show_info
+			contents[2].show_basic_info
 		else
 			puts "Oops.. I'm not sure I understood what you'd like to do. Let's try that again."
 			sleep 2

@@ -1,6 +1,6 @@
 require 'httparty'
 require 'pp'
-require 'pry'
+#require 'pry'
 require_relative "foodexplorer/CLI"
 require_relative "foodexplorer/version"
 require_relative "foodexplorer/products"
