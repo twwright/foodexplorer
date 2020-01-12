@@ -10,7 +10,7 @@ class CLI
 		print " L O A D I N G\n".red + "[---".red
 		until loading == 0
 			print "--".red
-			#sleep 1
+			sleep 1
 			loading -= 1
 		end
 		puts "---]".red
