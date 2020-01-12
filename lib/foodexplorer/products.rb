@@ -1,23 +1,17 @@
 class Product
-	attr_accessor :id, :name, :calories, :carbs, :fat, :protein, :cabinet
+	attr_accessor :id, :name, :calories, :carbs, :fat, :protein, :image, :cabinet
 
 	@@all = []
 
-	def initialize(cabinet_name)
-		self.cabinet = cabinet_name
-		product_json = API.product_info
-		create_new(product_json)
+	def initialize
 		@@all << self
 	end
 
-	def create_new(product_json)
-		self.id = product_json["id"]
-		self.name = product_json["title"]
-		self.calories = product_json["nutrition"]["calories"].to_i #returns int
-		self.carbs = product_json["nutrition"]["carbs"] #returns string, use .gsub("g", "").to_i if wanting to do calculations in future
-		self.fat = product_json["nutrition"]["fat"] #returns string, use .gsub("g", "").to_i if wanting to do calculations in future
-		self.protein = product_json["nutrition"]["protein"] #returns string, use .gsub("g", "").to_i if wanting to do calculations in future
-		self.image = product_json["images"][0]
+	def self.create_new # Single responsibility principle
+		product = Product.new
+		attributes = API.product_info
+		attributes.each { |key, value| product.send("#{key}=", value) } # Mass assignemnt
+		product
 	end
 
 	def self.all
