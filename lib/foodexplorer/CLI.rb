@@ -31,7 +31,8 @@ class CLI
 		elsif input.include? "item" || "product"
 			products_splash
 		else
-			oops(main_menu)
+			oops
+			main_menu
 		end
 	end
 	
@@ -60,7 +61,8 @@ class CLI
 		elsif input.include? "menu" || "back"
 			main_menu
 		else
-			oops(kitchen_menu)
+			oops
+			kitchen_menu
 		end
 	end
 
@@ -105,7 +107,8 @@ class CLI
 				display_cabinet("Cabinet #{input}")
 			end
 		else
-			oops(open_current_cabinet_query)
+			oops
+			open_current_cabinet_query
 		end
 	end
 
@@ -122,7 +125,8 @@ class CLI
 			selection = Product.all.select { |product, cabinet| product.cabinet == cabinet_name }[input.to_i-1]
 			show_basic_info(selection)
 		else
-			oops(cabinet_contents_query(cabinet_name))
+			oops
+			cabinet_contents_query(cabinet_name)
 		end
 	end
 
@@ -181,7 +185,8 @@ class CLI
 			puts "\nVery well then. Let's head back to the main menu."
 			main_menu
 		else
-			oops(create_new_product_from_cabinet_query)
+			oops
+			create_new_product_from_cabinet_query
 		end
 	end
 	
@@ -196,14 +201,16 @@ class CLI
 				puts "\nLet's head back to the kichen."
 				kitchen_splash
 			else
-				oops(products_explore_query)
+				oops
+				products_explore_query
 			end
 		else
 			selection = Product.all[input.to_i-1]
 			if selection != nil
 				show_basic_info(selection)
 			else
-				oops(products_explore_query)
+				oops
+				products_explore_query
 			end
 		end
 	end
@@ -228,7 +235,8 @@ class CLI
 			puts "\nVery well then. Let's head back to the main menu."
 			main_menu
 		else
-			oops(show_expanded_info_query(selection))
+			oops
+			show_expanded_info_query(selection)
 		end
 	end
 
@@ -248,9 +256,8 @@ class CLI
 		main_menu
 	end
 
-	def oops(context)
-		puts "\nOops.. I'm not sure I understood what you'd like to do. Let's head back to the main menu."
-		context
+	def oops
+		puts "\nOops.. I'm not sure I understood what you were trying to do."
 	end
 
 	def goodbye
