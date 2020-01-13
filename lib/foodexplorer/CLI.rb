@@ -79,7 +79,7 @@ class CLI
 			loop do
 				product = Product.create_from_api
 				self.selected_cabinet.products << product # Establishing a has-many relationship
-				product.cabinet = self.selected_cabinet.name # Establishing a belongs-to relationship
+				product.cabinet_name = self.selected_cabinet.name # Establishing a belongs-to relationship
 				break if self.selected_cabinet.products.count == random_count
 			end
 			display_cabinet
@@ -205,7 +205,7 @@ class CLI
 		else
 			selection = Product.all[input.to_i-1]
 			if selection != nil
-				show_basic_info(selection)
+				show_basic_info
 			else
 				oops
 				products_explore_query
@@ -216,7 +216,7 @@ class CLI
 	def show_basic_info
 		puts "\n#{self.selected_product.name} has #{self.selected_product.calories} calories and and looks like this:"
 		puts "\t#{self.selected_product.image}".blue
-		puts "#{self.selected_product.name} has an ID of #{self.selected_product.id} and can be found in #{self.selected_product.cabinet}."
+		puts "#{self.selected_product.name} has an ID of #{self.selected_product.id} and can be found in #{self.selected_product.cabinet_name}."
 		show_expanded_info_query
 	end
 

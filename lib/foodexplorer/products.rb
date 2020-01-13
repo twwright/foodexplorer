@@ -1,5 +1,5 @@
 class Product
-	attr_accessor :id, :name, :calories, :carbs, :fat, :protein, :image, :cabinet
+	attr_accessor :id, :name, :calories, :carbs, :fat, :protein, :image, :cabinet_name
 
 	@@all = []
 
