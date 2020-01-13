@@ -1,4 +1,5 @@
 class CLI
+	attr_accessor :selected_cabinet, :selected_product
 
 	def splash
 		puts <<-SPLASH.gsub /^\s*/, ''
@@ -67,7 +68,7 @@ class CLI
 	end
 
 	def new_cabinet
-		cabinet = Cabinet.new
+		self.selected_cabinet = Cabinet.new
 		random_count = rand(0..3)
 		if random_count == 0
 			puts "\nUh oh! Looks like this cabinet is empty."
@@ -75,44 +76,23 @@ class CLI
 			puts API.joke
 			kitchen_splash
 		else
-			final_count = Product.all.count + random_count
 			loop do
-				product = Product.create_new
-				product.cabinet = cabinet.name # Establishing a belongs-to relationship
-				break if Product.all.count == final_count
+				product = Product.create_from_api
+				self.selected_cabinet.products << product # Establishing a has-many relationship
+				product.cabinet = self.selected_cabinet.name # Establishing a belongs-to relationship
+				break if self.selected_cabinet.products.count == random_count
 			end
-			display_cabinet(cabinet.name) # Passes cabinet name to display_cabinet to eliminate repetitive code
+			display_cabinet
 		end
 	end
 
-	def display_cabinet(cabinet_name)
+	def display_cabinet
 		puts "\nInside of #{cabinet_name} we have..."
-		Product.all.each.with_index(1) do |product, index| 
-			if product.cabinet == cabinet_name
-				puts "\t #{index}. #{product.name}"
-			end
-		end
-		cabinet_contents_query(cabinet_name)
+		self.selected_cabinet.products.each.with_index(1) { |product, index| puts "\t #{index}. #{product.name}" }
+		cabinet_contents_query
 	end
 
-	def open_existing_cabinet(input)
-		if input.include? "exit"
-			goodbye
-		elsif input.to_i.between?(1,999)
-			if Product.all.count { |product, cabinet| product.cabinet == "Cabinet #{input}" } == 0
-				puts "\n... oh no! This cabinet was empty."
-				puts "Maybe we should check out a different cabinet."
-				kitchen_menu
-			else
-				display_cabinet("Cabinet #{input}")
-			end
-		else
-			oops
-			open_current_cabinet_query
-		end
-	end
-
-	def cabinet_contents_query(cabinet_name)
+	def cabinet_contents_query
 		puts "\nTo find out more information about an item, type the item number below. To go back, type #{"Back".on_red}."
 		print "\n>> ".on_red
 		input = gets.to_s.strip.downcase
@@ -122,11 +102,11 @@ class CLI
 			puts "\nLet's head back to the kitchen."
 			kitchen_splash
 		elsif input == "1" || input == "2" || input == "3"
-			selection = Product.all.select { |product, cabinet| product.cabinet == cabinet_name }[input.to_i-1]
-			show_basic_info(selection)
+			self.selected_product = self.selected_cabinet.products[input.to_i-1]
+			show_basic_info
 		else
 			oops
-			cabinet_contents_query(cabinet_name)
+			cabinet_contents_query
 		end
 	end
 
@@ -149,7 +129,25 @@ class CLI
 		puts "\nTo explore a cabinet, just type the number of the cabinet!"
 		print "\n>> ".on_red
 		input = gets.gsub("cabinet", "").strip.downcase
-		open_existing_cabinet(input)
+		self.selected_cabinet = Cabinet.all[input-1]
+		open_existing_cabinet
+	end
+
+	def open_existing_cabinet
+		if input.include? "exit"
+			goodbye
+		elsif input.to_i.between?(1,999)
+			if self.selected_cabinet.count == 0
+				puts "\n... oh no! This cabinet was empty."
+				puts "Maybe we should check out a different cabinet."
+				kitchen_menu
+			else
+				display_cabinet
+			end
+		else
+			oops
+			open_current_cabinet_query
+		end
 	end
 
 ############################
@@ -215,14 +213,14 @@ class CLI
 		end
 	end
 
-	def show_basic_info(selection)
-		puts "\n#{selection.name} has #{selection.calories} calories and and looks like this:"
-		puts "\t#{selection.image}".blue
-		puts "#{selection.name} has an ID of #{selection.id} and can be found in #{selection.cabinet}."
-		show_expanded_info_query(selection)
+	def show_basic_info
+		puts "\n#{self.selected_product.name} has #{self.selected_product.calories} calories and and looks like this:"
+		puts "\t#{self.selected_product.image}".blue
+		puts "#{self.selected_product.name} has an ID of #{self.selected_product.id} and can be found in #{self.selected_product.cabinet}."
+		show_expanded_info_query
 	end
 
-	def show_expanded_info_query(selection)
+	def show_expanded_info_query
 		puts "\nWould you be interested in finding out some more?"
 		puts "Type #{"Yes".on_green} or #{"No".on_red}."
 		print "\n>> ".on_red
@@ -230,29 +228,29 @@ class CLI
 		if input.include? "exit"
 			goodbye
 		elsif input.include? "yes"
-			show_expanded_info(selection)
+			show_expanded_info
 		elsif input.include? "no"
 			puts "\nVery well then. Let's head back to the main menu."
 			main_menu
 		else
 			oops
-			show_expanded_info_query(selection)
+			show_expanded_info_query
 		end
 	end
 
-	def show_expanded_info(selection)
+	def show_expanded_info
 		print "\nIt looks like a serving of this product contains "
-		if selection.fat == nil
-			puts "#{selection.carbs} of carbs and #{selection.protein} of protein."
-		elsif selection.carbs == nil
-			puts "#{selection.fat} of fat and #{selection.protein} of protein."
-		elsif selection.protein == nil
-			puts "#{selection.carbs} of carbs and #{selection.fat} of fat."
+		if self.selected_product.fat == nil
+			puts "#{self.selected_product.carbs} of carbs and #{self.selected_product.protein} of protein."
+		elsif self.selected_product.carbs == nil
+			puts "#{self.selected_product.fat} of fat and #{self.selected_product.protein} of protein."
+		elsif self.selected_product.protein == nil
+			puts "#{self.selected_product.carbs} of carbs and #{self.selected_product.fat} of fat."
 		else
-			puts "#{selection.carbs} of carbs, #{selection.fat} of fat, and #{selection.protein} of protein."
+			puts "#{self.selected_product.carbs} of carbs, #{self.selected_product.fat} of fat, and #{self.selected_product.protein} of protein."
 		end
 		puts "To purchase this product or continue your quest for info, head to:"
-		puts "\thttps://google.com/search?q=#{selection.name.gsub(" ", "+")}".blue
+		puts "\thttps://google.com/search?q=#{self.selected_product.name.gsub(" ", "+")}".blue
 		main_menu
 	end
 

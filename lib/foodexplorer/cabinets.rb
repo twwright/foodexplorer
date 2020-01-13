@@ -12,4 +12,7 @@ class Cabinet
 		@@all
 	end
 
+	def products
+		@products = []
+	end
 end
