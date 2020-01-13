@@ -28,7 +28,7 @@ class CLI
 			goodbye
 		elsif input.include? "kit"
 			kitchen_splash
-		elsif input.include? "item" || "product"
+		elsif input.include? "item" || input.include? "product"
 			products_splash
 		else
 			oops
