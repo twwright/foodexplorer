@@ -4,7 +4,7 @@ class Product
 	@@all = []
 
 	def initialize(attribute_hash)
-		attributes.each { |key, value| product.send("#{key}=", value) } # Mass assignemnt
+		attribute_hash.each { |key, value| self.send("#{key}=", value) } # Mass assignemnt
 		@@all << self
 	end
 

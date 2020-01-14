@@ -5,7 +5,5 @@ source "https://rubygems.org"
 gem 'gemspec'
 gem 'httparty'
 gem 'colorize'
-gem ''
-
-#gem 'rspec'
-#gem 'rubocop'
+gem 'rspec'
+gem 'pry'

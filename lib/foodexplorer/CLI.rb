@@ -11,7 +11,7 @@ class CLI
 		print " L O A D I N G\n".red + "[---".red
 		until loading == 0
 			print "--".red
-			sleep 1
+			#sleep 1
 			loading -= 1
 		end
 		puts "---]".red
@@ -29,7 +29,7 @@ class CLI
 			goodbye
 		elsif input.include? "kit"
 			kitchen_splash
-		elsif input.include? "item" || input.include? "product"
+		elsif input.include?("item") || input.include?("product")
 			products_splash
 		else
 			oops
@@ -129,7 +129,7 @@ class CLI
 		puts "\nTo explore a cabinet, just type the number of the cabinet!"
 		print "\n>> ".on_red
 		input = gets.gsub("cabinet", "").strip.downcase
-		self.selected_cabinet = Cabinet.all[input-1]
+		self.selected_cabinet = Cabinet.all[input.to_i-1]
 		open_existing_cabinet
 	end
 
