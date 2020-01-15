@@ -59,7 +59,7 @@ class CLI
 			new_cabinet
 		elsif input.include? "cur"
 			current_cabinets
-		elsif input.include? "menu" || "back"
+		elsif input.include?("menu") || input.include?("back")
 			main_menu
 		else
 			oops
@@ -101,6 +101,8 @@ class CLI
 		elsif input.include? "back"
 			puts "\nLet's head back to the kitchen."
 			kitchen_splash
+		elsif input.include? "menu"
+			main_menu
 		elsif input == "1" || input == "2" || input == "3"
 			self.selected_product = self.selected_cabinet.product_list[input.to_i-1]
 			show_basic_info
@@ -131,6 +133,8 @@ class CLI
 		input = gets.gsub("cabinet", "").strip.downcase
 		if input.include? "exit"
 			goodbye
+		elsif input.include? "menu"
+			main_menu
 		elsif input.to_i.between?(1,999)
 			self.selected_cabinet = Cabinet.all[input.to_i-1]
 			if self.selected_cabinet.product_list.count == 0
