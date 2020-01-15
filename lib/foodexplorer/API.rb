@@ -1,3 +1,4 @@
+
 class API
 	include HTTParty
 	@@api_root = "https://api.spoonacular.com/food"

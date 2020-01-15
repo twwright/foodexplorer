@@ -7,12 +7,15 @@ This tool is a playful interface to find out about random foods, collected in yo
 
 ## Installation
 
-Eventually, **foodexplorer** will be a fully-fledged Ruby gem. At the moment, installation of the project can be performed with the following steps:
+[![Run on Repl.it](https://repl.it/badge/github/twwright/foodexplorer)](https://repl.it/github/twwright/foodexplorer) The quickest way to get started is to try it out on Repl.it!
+
+Eventually, **foodexplorer** will be a fully-fledged Ruby gem. At the moment, installation of the project can be performed locally with the following steps:
 1. Navigate to the repo on GitHub at https://github.com/twwright/foodexplorer
 2. Click the green Clone or Download button and copy the remote URL
 3. Type `git clone` then paste the copied URL into your terminal
 4. Change directory using `cd foodexplorer` in the terminal to open the Foodexplorer directory
 5. Install dependencies with `bundle install`
+
 
 ## Usage
 

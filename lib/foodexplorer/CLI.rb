@@ -2,6 +2,7 @@ class CLI
 	attr_accessor :selected_cabinet, :selected_product
 
 	def splash
+		puts "\n"
 		puts <<-SPLASH.gsub /^\s*/, ''
 		Hello! Welcome to your personal foodexplorer! 
 		We're going to explore your kitchen and check out the nutritional facts for the products that we find! 

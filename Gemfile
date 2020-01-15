@@ -1,7 +1,13 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
-# Specify your gem's dependencies in foodexplorer.gemspec
-gem 'httparty'
-gem 'colorize'
-#gem 'pry'
+# gem "rails"
+
+gem "colorize", "~> 0.8.1"
+
+gem "httparty", "~> 0.17.3"
+
+gem "bundler", "~> 1.17"
