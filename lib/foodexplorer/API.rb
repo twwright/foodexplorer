@@ -1,4 +1,3 @@
-require 'pry'
 class API
 	include HTTParty
 	@@api_root = "https://api.spoonacular.com/food"
@@ -8,7 +7,6 @@ class API
 		id = rand(99999)
 		result_hash = HTTParty.get("#{@@api_root}/products/#{id}#{@@api_key}")
 		if result_hash["status"] == 404 # Repeats if no product with ID from Spoonacular
-			binding.pry
 			self.product_info
 		else 
 			product = {}
