@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-require "colorize"
-require "httparty"
 require "foodexplorer"
 
 require "irb"

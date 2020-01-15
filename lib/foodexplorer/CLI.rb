@@ -11,7 +11,7 @@ class CLI
 		print " L O A D I N G\n".red + "[---".red
 		until loading == 0
 			print "--".red
-			#sleep 1
+			sleep 1
 			loading -= 1
 		end
 		puts "---]".red
@@ -78,17 +78,17 @@ class CLI
 		else
 			loop do
 				product = Product.create_from_api
-				self.selected_cabinet.products << product # Establishing a has-many relationship
+				self.selected_cabinet.product_list << product # Establishing a has-many relationship
 				product.cabinet_name = self.selected_cabinet.name # Establishing a belongs-to relationship
-				break if self.selected_cabinet.products.count == random_count
+				break if self.selected_cabinet.product_list.count == random_count
 			end
 			display_cabinet
 		end
 	end
 
 	def display_cabinet
-		puts "\nInside of #{cabinet_name} we have..."
-		self.selected_cabinet.products.each.with_index(1) { |product, index| puts "\t #{index}. #{product.name}" }
+		puts "\nInside of #{self.selected_cabinet.name} we have..."
+		self.selected_cabinet.product_list.each.with_index(1) { |product, index| puts "\t #{index}. #{product.name}" }
 		cabinet_contents_query
 	end
 
@@ -102,7 +102,7 @@ class CLI
 			puts "\nLet's head back to the kitchen."
 			kitchen_splash
 		elsif input == "1" || input == "2" || input == "3"
-			self.selected_product = self.selected_cabinet.products[input.to_i-1]
+			self.selected_product = self.selected_cabinet.product_list[input.to_i-1]
 			show_basic_info
 		else
 			oops
@@ -129,15 +129,11 @@ class CLI
 		puts "\nTo explore a cabinet, just type the number of the cabinet!"
 		print "\n>> ".on_red
 		input = gets.gsub("cabinet", "").strip.downcase
-		self.selected_cabinet = Cabinet.all[input.to_i-1]
-		open_existing_cabinet
-	end
-
-	def open_existing_cabinet
 		if input.include? "exit"
 			goodbye
 		elsif input.to_i.between?(1,999)
-			if self.selected_cabinet.count == 0
+			self.selected_cabinet = Cabinet.all[input.to_i-1]
+			if self.selected_cabinet.product_list.count == 0
 				puts "\n... oh no! This cabinet was empty."
 				puts "Maybe we should check out a different cabinet."
 				kitchen_menu
@@ -216,7 +212,7 @@ class CLI
 	def show_basic_info
 		puts "\n#{self.selected_product.name} has #{self.selected_product.calories} calories and and looks like this:"
 		puts "\t#{self.selected_product.image}".blue
-		puts "#{self.selected_product.name} has an ID of #{self.selected_product.id} and can be found in #{self.selected_product.cabinet_name}."
+		puts "#{self.selected_product.name} has an \#ID of #{self.selected_product.id} and can be found in #{self.selected_product.cabinet_name}."
 		show_expanded_info_query
 	end
 

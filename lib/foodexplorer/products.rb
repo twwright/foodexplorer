@@ -8,9 +8,10 @@ class Product
 		@@all << self
 	end
 
-	def self.create_from_api # Single responsibility principle
+	def self.create_from_api
 		attribute_hash = API.product_info
-		product = Product.new(attribute_hash)
+		new_product = Product.new(attribute_hash)
+		new_product
 	end
 
 	def self.all
