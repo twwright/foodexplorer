@@ -8,7 +8,7 @@ This tool is a playful interface to find out about random foods, collected in yo
 ## Installation
 
 Eventually, **foodexplorer** will be a fully-fledged Ruby gem. At the moment, installation can be performed with the following steps:
-1. Navigate to the repo on GitHub at https://github.com/twwright/hogwarts
+1. Navigate to the repo on GitHub at https://github.com/twwright/foodexplorer
 2. Click the Clone/Download button and copy the remote URL.
 3. Type `git clone` then paste the copied URL into your terminal.
 4. Change directory using `cd foodexplorer` in the terminal to open the Foodexplorer directory
@@ -37,4 +37,4 @@ The project is available as open source under the terms of the [MIT License](htt
 
 ## Code of Conduct
 
-Everyone interacting in the Foodexplorer codebase, issue trackers, and chat is expected to follow the [code of conduct](https://github.com/twwright/foodexplorer/CODE_OF_CONDUCT.md).
+Everyone interacting in the Foodexplorer codebase, issue trackers, and chat is expected to follow the [code of conduct](https://github.com/twwright/foodexplorer/blob/master/CODE_OF_CONDUCT.md).
