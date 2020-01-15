@@ -7,13 +7,12 @@ This tool is a playful interface to find out about random foods, collected in yo
 
 ## Installation
 
-Eventually, **foodexplorer** will be a fully-fledged Ruby gem. At the moment, installation can be performed with the following steps:
+Eventually, **foodexplorer** will be a fully-fledged Ruby gem. At the moment, installation of the project can be performed with the following steps:
 1. Navigate to the repo on GitHub at https://github.com/twwright/foodexplorer
-2. Click the Clone/Download button and copy the remote URL.
-3. Type `git clone` then paste the copied URL into your terminal.
+2. Click the green Clone or Download button and copy the remote URL
+3. Type `git clone` then paste the copied URL into your terminal
 4. Change directory using `cd foodexplorer` in the terminal to open the Foodexplorer directory
 5. Install dependencies with `bundle install`
-6. Type `ruby start` in your terminal!
 
 ## Usage
 
@@ -25,7 +24,7 @@ From there, you can explore the kitchen of your dreams, full of a random assortm
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment. 
 
 ## Contributing
 
