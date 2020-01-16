@@ -74,12 +74,12 @@ class CLI
 			puts "\nUh oh! Looks like this cabinet is empty."
 			puts "As a consolation prize, how about a bad joke?"
 			puts API.joke
-			kitchen_splash
+			kitchen_menu
 		else
 			loop do
 				product = Product.create_from_api
-				self.selected_cabinet.product_list << product # Establishing a has-many relationship
-				product.cabinet_name = self.selected_cabinet.name # Establishing a belongs-to relationship
+				self.selected_cabinet.product_list << product
+				product.cabinet_name = self.selected_cabinet.name 
 				break if self.selected_cabinet.product_list.count == random_count
 			end
 			display_cabinet
@@ -119,7 +119,7 @@ class CLI
 
 	def cabinet_list_all
 		if Cabinet.all.length == 0
-			puts "\nHmm. Looks like we haven't opened any cabinets yet."
+			puts "\nHmm. Looks like we haven't opened any cabinets yet!"
 			kitchen_menu
 		else Cabinet.all.length > 0
 			Cabinet.all.each { |cabinet| puts "\t [- #{cabinet.name} -]" }
@@ -135,6 +135,8 @@ class CLI
 			goodbye
 		elsif input.include? "menu"
 			main_menu
+		elsif input.include? "back"
+			kitchen_menu
 		elsif input.to_i.between?(1,999)
 			self.selected_cabinet = Cabinet.all[input.to_i-1]
 			if self.selected_cabinet.product_list.count == 0
@@ -203,8 +205,8 @@ class CLI
 				products_explore_query
 			end
 		else
-			selection = Product.all[input.to_i-1]
-			if selection != nil
+			@selected_product = Product.all[input.to_i-1]
+			if @selected_product != nil
 				show_basic_info
 			else
 				oops
@@ -255,7 +257,18 @@ class CLI
 	end
 
 	def oops
-		puts "\nOops.. I'm not sure I understood what you were trying to do."
+		random = rand(0..5)
+		if random == 1
+			puts "\nOops.. I'm not sure I understood what you were trying to do."
+		elsif random == 2
+			puts "\nHmm.. looks like you're having a little trouble."
+		elsif random == 3
+			puts "\nOh no.. I don't think you entered a valid option."
+		elsif random == 4
+			puts "\nDarn.. you lost me. Let's try that again?"
+		else
+			puts "\nWhoops.. didn't catch that. Try again?"
+		end
 	end
 
 	def goodbye
