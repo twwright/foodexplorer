@@ -8,7 +8,7 @@ class CLI
 		Let's get started!
 		SPLASH
 		loading = 3
-		print " L O A D I N G\n".red + "[---".red
+		print "\n L O A D I N G\n".red + "[---".red
 		until loading == 0
 			print "--".red
 			sleep 1
@@ -115,10 +115,6 @@ class CLI
 
 	def current_cabinets
 		puts "\nHere's a list of your current cabinet(s):"
-		cabinet_list_all
-	end
-
-	def cabinet_list_all
 		if Cabinet.all.length == 0
 			puts "\nHmm. Looks like we haven't opened any cabinets yet!"
 			kitchen_menu
