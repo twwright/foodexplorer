@@ -50,6 +50,7 @@ class CLI
 
 	def kitchen_menu
 		puts "\nWould you like to Open a #{"New".on_green} cabinet or see your #{"Current".on_blue} cabinet(s)?"
+		puts "You can also head back to the main menu by typing #{"Menu".on_red}."
 		print "\n>> ".on_red
 		input = gets.strip.downcase
 		if input.include? "exit"
@@ -103,7 +104,7 @@ class CLI
 			kitchen_splash
 		elsif input.include? "menu"
 			main_menu
-		elsif input == "1" || input == "2" || input == "3"
+		elsif input.to_i <= selected_cabinet.product_list.count && input != nil && input.to_i != 0 && input.to_s !~ /\./
 			self.selected_product = self.selected_cabinet.product_list[input.to_i-1]
 			show_basic_info
 		else
@@ -137,7 +138,7 @@ class CLI
 			main_menu
 		elsif input.include? "back"
 			kitchen_menu
-		elsif input.to_i.between?(1,999)
+		elsif input.to_i <= Cabinet.all.count && input != nil && input.to_i != 0 && input.to_s !~ /\./
 			self.selected_cabinet = Cabinet.all[input.to_i-1]
 			if self.selected_cabinet.product_list.count == 0
 				puts "\n... oh no! This cabinet was empty."
@@ -165,8 +166,7 @@ class CLI
 		if Product.all.length == 0
 			create_new_product_from_cabinet_query
 		elsif Product.all.length > 0
-			list = Product.all
-			list.each.with_index(1) { |product, index| puts "\t#{index}." + " #{product.name}" }
+			Product.all.each.with_index(1) { |product, index| puts "\t#{index}." + " #{product.name}" }
 		end
 		products_explore_query
 	end
@@ -194,24 +194,17 @@ class CLI
 		puts "\nTo find out more information about an item, type the item number below. To go back to the kitchen, type #{"Back".on_red}."
 		print "\n>> ".on_red
 		input = gets.strip.downcase
-		if input.to_i == 0
-			if input.to_s.include? "exit"
-				goodbye
-			elsif input.to_s.include? "back"
-				puts "\nLet's head back to the kichen."
-				kitchen_splash
-			else
-				oops
-				products_explore_query
-			end
+		if input.to_s.include? "exit"
+			goodbye
+		elsif input.to_s.include? "back"
+			puts "\nLet's head back to the kichen."
+			kitchen_splash
+		elsif input.to_i <= Product.all.count && input != nil && input.to_i != 0 && input.to_s !~ /\./
+			self.selected_product = Product.all[input.to_i-1]
+			show_basic_info
 		else
-			@selected_product = Product.all[input.to_i-1]
-			if @selected_product != nil
-				show_basic_info
-			else
-				oops
-				products_explore_query
-			end
+			oops
+			products_explore_query
 		end
 	end
 
