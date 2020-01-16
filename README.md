@@ -18,9 +18,7 @@ Eventually, **foodexplorer** will be a fully-fledged Ruby gem. At the moment, in
 
 ## Usage
 
-To run Foodexplorer in your CLI:
-1. Change into the bin directory with `cd bin`
-2. Type `ruby start` into your terminal!
+To run Foodexplorer from your command line, just enter `cd bin && ruby start` into your shell!
 
 From there, you can explore the kitchen of your dreams, full of a random assortment of your (possibly) favorite food items! Complete with photos, macronutrient information, and a helpful follow-up link to learn more.
 
