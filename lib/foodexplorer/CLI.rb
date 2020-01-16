@@ -30,7 +30,7 @@ class CLI
 		elsif input.include? "kit"
 			kitchen_splash
 		elsif input.include?("item") || input.include?("product")
-			products_splash
+			product_splash
 		else
 			oops
 			main_menu
@@ -59,7 +59,7 @@ class CLI
 			puts "\nLet's do it!"
 			new_cabinet
 		elsif input.include? "cur"
-			current_cabinets
+			current_cabinet_list
 		elsif input.include?("menu") || input.include?("back")
 			main_menu
 		else
@@ -113,7 +113,7 @@ class CLI
 		end
 	end
 
-	def current_cabinets
+	def current_cabinet_list
 		puts "\nHere's a list of your current cabinet(s):"
 		if Cabinet.all.length == 0
 			puts "\nHmm. Looks like we haven't opened any cabinets yet!"
@@ -153,21 +153,21 @@ class CLI
 ### PRODUCT MENU OPTIONS ###
 ############################
 
-	def products_splash
+	def product_splash
 		puts "\nLet's take a look at all of the products in your kitchen!"
-		products_list
+		product_list
 	end
 
-	def products_list
+	def product_list
 		if Product.all.length == 0
-			create_new_product_from_cabinet_query
+			new_from_product_list_query
 		elsif Product.all.length > 0
 			Product.all.each.with_index(1) { |product, index| puts "\t#{index}." + " #{product.name}" }
 		end
-		products_explore_query
+		show_basic_info_query
 	end
 
-	def create_new_product_from_cabinet_query
+	def new_from_product_list_query
 		puts "\nHmm. Looks like you don't have found any products yet."
 		puts "Would you like to head to the kitchen to open a new cabinet?"
 		puts "Type #{"Yes".on_green} or #{"No".on_red}."
@@ -182,11 +182,11 @@ class CLI
 			main_menu
 		else
 			oops
-			create_new_product_from_cabinet_query
+			new_from_product_list_query
 		end
 	end
 	
-	def products_explore_query
+	def show_basic_info_query
 		puts "\nTo find out more information about an item, type the item number below. To go back to the kitchen, type #{"Back".on_red}."
 		print "\n>> ".on_red
 		input = gets.strip.downcase
@@ -200,7 +200,7 @@ class CLI
 			show_basic_info
 		else
 			oops
-			products_explore_query
+			show_basic_info_query
 		end
 	end
 
