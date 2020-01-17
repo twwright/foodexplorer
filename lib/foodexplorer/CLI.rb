@@ -11,7 +11,7 @@ class CLI
 		print "\n L O A D I N G\n".red + "[---".red
 		until loading == 0
 			print "--".red
-			sleep 1
+			#sleep 1
 			loading -= 1
 		end
 		puts "---]".red
@@ -90,6 +90,7 @@ class CLI
 	def display_cabinet
 		puts "\nInside of #{self.selected_cabinet.name} we have..."
 		self.selected_cabinet.product_list.each.with_index(1) { |product, index| puts "\t #{index}. #{product.name}" }
+		puts "\nThere are #{self.selected_cabinet.total_calories} total calories!"
 		cabinet_contents_query
 	end
 

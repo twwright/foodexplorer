@@ -10,8 +10,7 @@ class Product
 
 	def self.create_from_api
 		attribute_hash = API.product_info
-		new_product = Product.new(attribute_hash)
-		new_product
+		Product.new(attribute_hash)
 	end
 
 	def self.all

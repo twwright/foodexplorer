@@ -9,6 +9,10 @@ class Cabinet
 		@@all << self
 	end
 
+	def total_calories
+		self.product_list.sum { |product| product.calories }
+	end
+
 	def self.all
 		@@all
 	end
