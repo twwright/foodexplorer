@@ -104,7 +104,7 @@ class CLI
 			kitchen_splash
 		elsif input.include? "menu"
 			main_menu
-		elsif input.to_i <= selected_cabinet.product_list.count && input != nil && input.to_i != 0 && input.to_s !~ /\./
+		elsif input.to_i <= selected_cabinet.product_list.count && input != nil && input.to_i > 0 && input.to_s !~ /\./
 			self.selected_product = self.selected_cabinet.product_list[input.to_i-1]
 			show_basic_info
 		else
@@ -134,7 +134,7 @@ class CLI
 			main_menu
 		elsif input.include? "back"
 			kitchen_menu
-		elsif input.to_i <= Cabinet.all.count && input != nil && input.to_i != 0 && input.to_s !~ /\./
+		elsif input.to_i <= Cabinet.all.count && input != nil && input.to_i > 0 && input.to_s !~ /\./
 			self.selected_cabinet = Cabinet.all[input.to_i-1]
 			if self.selected_cabinet.product_list.count == 0
 				puts "\n... oh no! This cabinet was empty."
@@ -195,7 +195,7 @@ class CLI
 		elsif input.to_s.include? "back"
 			puts "\nLet's head back to the kichen."
 			kitchen_splash
-		elsif input.to_i <= Product.all.count && input != nil && input.to_i != 0 && input.to_s !~ /\./
+		elsif input.to_i <= Product.all.count && input != nil && input.to_i > 0 && input.to_s !~ /\./
 			self.selected_product = Product.all[input.to_i-1]
 			show_basic_info
 		else
