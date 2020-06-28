@@ -1,5 +1,5 @@
 
-[![Foodexplorer v1 - a command line tool in ruby logo](https://github.com/twwright/foodexplorer/blob/master/foodexplorerv1.png)](https://repl.it/@twwright/foodexplorer)
+[![Foodexplorer v1 - a command line tool in ruby logo](https://raw.githubusercontent.com/twwright/foodexplorer/master/foodexplorerv1.png)](https://repl.it/@twwright/foodexplorer)
 
 ## Welcome to Foodexplorer v1.7!
 
