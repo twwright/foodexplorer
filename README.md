@@ -1,7 +1,7 @@
 
-![Foodexplorer v1 - a command line tool in ruby logo](https://github.com/twwright/foodexplorer/blob/master/foodexplorerv1.svg)
+[![Foodexplorer v1 - a command line tool in ruby logo](https://github.com/twwright/foodexplorer/blob/master/foodexplorerv1.png)](https://repl.it/@twwright/foodexplorer)
 
-## Welcome to Foodexplorer v1.7! [![Run on Repl.it](https://repl.it/badge/github/twwright/foodexplorer)](https://repl.it/@twwright/foodexplorer)
+## Welcome to Foodexplorer v1.7!
 
 This tool is a playful interface to find out about random foods, collected in your very own forgotten cabinets. Future iterations aim to add features such as custom products, custom cabinets, product lookup, meal logging, and macronutrient ratio calculations for the user.
 
